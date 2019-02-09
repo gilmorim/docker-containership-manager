@@ -1,4 +1,4 @@
-
+import com.github.dockerjava.api.command.DockerCmd;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.spotify.docker.client.DefaultDockerClient;
@@ -12,6 +12,8 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.util.*;
+
+import com.github.dockerjava.api.command.CreateContainerResponse;
 
 public class DockerInformation {
     DockerClient dockerClient;
@@ -74,7 +76,7 @@ public class DockerInformation {
 
         for(int i = 0; i != allContainers.size(); i++){
             ContainerInfo info = dockerClient.inspectContainer(allContainers.get(i).id());
-            statuses.put(i+1, info.image());
+            statuses.put(i+1, info.name());
         }
 
         return statuses;

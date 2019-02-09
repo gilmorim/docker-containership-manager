@@ -1,6 +1,7 @@
 import jnr.ffi.annotations.In;
 import org.snmp4j.agent.mo.MOMutableTableModel;
 import org.snmp4j.agent.mo.MOScalar;
+import org.snmp4j.agent.mo.MOTable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class UniversalVariables {
     MOScalar msta2;
     MOScalar msta3;
 
+    MOTable mob;
     MOTableBuilder builder_s;
     MOMutableTableModel m3;
     Agent agent;
@@ -91,12 +93,12 @@ public class UniversalVariables {
     }
     public void Put_Table_3_Build (MOTableBuilder bui){ this.builder_s=bui; }
     public MOTableBuilder Get_Table_3_Build (){ return builder_s;}
-
     public void Put_Agente (Agent new_agente){
         this.agent=new_agente;
     }
     public Agent Get_Agente (){
         return agent;
     }
-
+    public void Put_Motable_3 (MOTable mob_new){this.mob=mob_new;}
+    public MOTable Get_MOTable_3(){return mob;}
 }

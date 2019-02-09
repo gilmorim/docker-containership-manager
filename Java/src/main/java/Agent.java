@@ -14,10 +14,7 @@ import org.snmp4j.smi.*;
 import org.snmp4j.transport.TransportMappings;
 import java.io.*;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.regex.Pattern;
 import static org.snmp4j.agent.mo.MOAccessImpl.ACCESSIBLE_FOR_READ_WRITE;
 
@@ -242,7 +239,8 @@ public class Agent extends BaseAgent implements MOChangeListener {
 					String id = TI.Get_ID_by_inteiroseq(k);
 					indexes[k]=k+1;
 				}
-				registerManagedObject(builder.build(indexes));
+				MOTable pt = builder.build(indexes);
+				registerManagedObject(pt);
 			}
 		//Table container
 
@@ -274,6 +272,10 @@ public class Agent extends BaseAgent implements MOChangeListener {
 					String idx = C.Get_Index_by_the_ID(k);
 					indexes[k]=Integer.parseInt(idx)+1;
 				}
+
+				MOTable pt = builder.build(indexes);
+				UV.Put_Motable_3(pt);
+				registerManagedObject(pt);
 
 				UV.Put_Table_3_Build(builder);
 				Agent agente = UV.Get_Agente();
@@ -594,8 +596,8 @@ public class Agent extends BaseAgent implements MOChangeListener {
 								indexes[w] = w+1;
 							}
 
-							MOTableBuilder x = UV.Get_Table_3_Build();
-							agente.registerManagedObject(mtb.build(indexes));
+							//MOTable x =
+							//registerManagedObject(x.build(indexes));
 							criaragente();
 
 						}catch (DockerCertificateException e) {

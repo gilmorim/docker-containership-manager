@@ -1,1 +1,0 @@
-# docker-containership-manager
