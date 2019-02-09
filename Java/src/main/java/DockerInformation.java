@@ -1,19 +1,11 @@
-import com.github.dockerjava.api.command.DockerCmd;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
+
 import com.spotify.docker.client.DefaultDockerClient;
 import com.spotify.docker.client.DockerClient;
 import com.spotify.docker.client.exceptions.DockerCertificateException;
 import com.spotify.docker.client.exceptions.DockerException;
 import com.spotify.docker.client.messages.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Paths;
-import java.security.SecureRandom;
 import java.util.*;
 
-import com.github.dockerjava.api.command.CreateContainerResponse;
 
 public class DockerInformation {
     DockerClient dockerClient;

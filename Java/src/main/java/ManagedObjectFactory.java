@@ -63,7 +63,6 @@ public class ManagedObjectFactory {
         } else if (value instanceof Integer) {
             return new Integer32((Integer) value);
         }
-        // TODO handle additional data types, if required
 
         throw new IllegalArgumentException("Unmanaged Type: " + value.getClass());
     }

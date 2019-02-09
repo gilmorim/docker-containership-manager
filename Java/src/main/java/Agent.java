@@ -18,14 +18,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 import static org.snmp4j.agent.mo.MOAccessImpl.ACCESSIBLE_FOR_READ_WRITE;
 
-/**
- * This Agent contains mimimal functionality for running a version 2c snmp
- * agent.
- *
- *
- * @author johanrask
- *
- */
+
 public class Agent extends BaseAgent implements MOChangeListener {
 
 	// not needed but very useful of course
@@ -38,16 +31,7 @@ public class Agent extends BaseAgent implements MOChangeListener {
 	public int count =0;
 	public Agent(String address) throws IOException {
 
-		/**
-		 * Creates a base agent with boot-counter, config file, and a
-		 * CommandProcessor for processing SNMP requests. Parameters:
-		 * "bootCounterFile" - a file with serialized boot-counter information
-		 * (read/write). If the file does not exist it is created on shutdown of
-		 * the agent. "configFile" - a file with serialized configuration
-		 * information (read/write). If the file does not exist it is created on
-		 * shutdown of the agent. "commandProcessor" - the CommandProcessor
-		 * instance that handles the SNMP requests.
-		 */
+
 		// These files does not exist and are not used but has to be specified
 		// Read snmp4j docs for more info
 		super(new File("conf.agent"), new File("bootCounter.agent"),
@@ -56,15 +40,7 @@ public class Agent extends BaseAgent implements MOChangeListener {
 		this.address = address;
 	}
 
-	/**
-	 * We let clients of this agent register the MO they
-	 * need so this method does nothing
-	 */
 
-
-	/**
-	 * Clients can register the MO they need
-	 */
 	public void registerManagedObject(ManagedObject mo) {
 		try {
 			server.register(mo, null);
@@ -91,11 +67,7 @@ public class Agent extends BaseAgent implements MOChangeListener {
 										  SnmpNotificationMIB notificationMIB) {
 	}
 
-	/**
-	 * Minimal View based Access Control
-	 * <p>
-	 * http://www.faqs.org/rfcs/rfc2575.html
-	 */
+
 	@Override
 	protected void addViews(VacmMIB vacm) {
 		UniversalVariables UV = UniversalVariables.getInstance();
@@ -136,10 +108,6 @@ public class Agent extends BaseAgent implements MOChangeListener {
 
 	}
 
-	/**
-	 * User based Security Model, only applicable to
-	 * SNMP v.3
-	 */
 	protected void addUsmUser(USM usm) {
 	}
 
@@ -150,12 +118,6 @@ public class Agent extends BaseAgent implements MOChangeListener {
 		transportMappings[0] = TransportMappings.getInstance().createTransportMapping(GenericAddress.parse(address));
 	}
 
-	/**
-	 * Start method invokes some initialization methods needed to
-	 * start the agent
-	 *
-	 * @throws IOException
-	 */
 	public void start() throws IOException {
 
 		init();
@@ -283,13 +245,6 @@ public class Agent extends BaseAgent implements MOChangeListener {
 			}
 		}
 
-
-
-
-
-	/**
-	 * Adds community to security name mappings needed for SNMPv1 and SNMPv2c.
-	 */
 
 	public static void main(String[] args) throws IOException, InterruptedException, DockerCertificateException, DockerException, URISyntaxException {
 
@@ -595,18 +550,15 @@ public class Agent extends BaseAgent implements MOChangeListener {
 							for (int w =0 ; w< sizec+1;w++){
 								indexes[w] = w+1;
 							}
-
-							//MOTable x =
-							//registerManagedObject(x.build(indexes));
-							criaragente();
+							MOTableBuilder md = UV.Get_Table_3_Build();
+							MOTable x = md.build(indexes);
+							registerManagedObject(x);
 
 						}catch (DockerCertificateException e) {
 							e.printStackTrace();
 						} catch (DockerException e) {
 							e.printStackTrace();
 						} catch (InterruptedException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
 							e.printStackTrace();
 						}
 
